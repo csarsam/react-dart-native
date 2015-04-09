@@ -6,7 +6,6 @@ library react_client;
 
 import "package:react/react.dart";
 import "dart:js";
-import "dart:html";
 import "dart:async";
 
 var _React = context['React'];
@@ -287,7 +286,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [Ite
 _reactDom(String name) {
   var call = (Map props, [dynamic children]) {
     _convertBoundValues(props);
-    _convertEventHandlers(props);
     if (props.containsKey('style')) {
       props['style'] = new JsObject.jsify(props['style']);
     }
@@ -364,131 +362,6 @@ _convertBoundValues(Map args) {
   }
 }
 
-
-/**
- * Convert event pack event handler into wrapper
- * and pass it only dart object of event
- * converted from JsObject of event.
- */
-_convertEventHandlers(Map args) {
-  var zone = Zone.current;
-  args.forEach((key, value) {
-    var eventFactory;
-    if (_syntheticClipboardEvents.contains(key)) {
-      eventFactory = syntheticClipboardEventFactory;
-    } else if (_syntheticKeyboardEvents.contains(key)) {
-      eventFactory = syntheticKeyboardEventFactory;
-    } else if (_syntheticFocusEvents.contains(key)) {
-      eventFactory = syntheticFocusEventFactory;
-    } else if (_syntheticFormEvents.contains(key)) {
-      eventFactory = syntheticFormEventFactory;
-    } else if (_syntheticMouseEvents.contains(key)) {
-      eventFactory = syntheticMouseEventFactory;
-    } else if (_syntheticTouchEvents.contains(key)) {
-      eventFactory = syntheticTouchEventFactory;
-    } else if (_syntheticUIEvents.contains(key)) {
-      eventFactory = syntheticUIEventFactory;
-    } else if (_syntheticWheelEvents.contains(key)) {
-      eventFactory = syntheticWheelEventFactory;
-    } else return;
-    args[key] = (JsObject e, [String domId]) => zone.run(() {
-      value(eventFactory(e));
-    });
-  });
-}
-
-SyntheticEvent syntheticEventFactory(JsObject e) {
-  return new SyntheticEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"]);
-}
-
-SyntheticEvent syntheticClipboardEventFactory(JsObject e) {
-  return new SyntheticClipboardEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["clipboardData"]);
-}
-
-SyntheticEvent syntheticKeyboardEventFactory(JsObject e) {
-  return new SyntheticKeyboardEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"],
-      e["nativeEvent"], e["target"], e["timeStamp"], e["type"], e["altKey"],
-      e["char"], e["charCode"], e["ctrlKey"], e["locale"], e["location"],
-      e["key"], e["keyCode"], e["metaKey"], e["repeat"], e["shiftKey"]);
-}
-
-SyntheticEvent syntheticFocusEventFactory(JsObject e) {
-  return new SyntheticFocusEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["relatedTarget"]);
-}
-
-SyntheticEvent syntheticFormEventFactory(JsObject e) {
-  return new SyntheticFormEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"]);
-}
-
-SyntheticEvent syntheticMouseEventFactory(JsObject e) {
-  return new SyntheticMouseEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["altKey"], e["button"], e["buttons"], e["clientX"], e["clientY"],
-      e["ctrlKey"], e["metaKey"], e["pageX"], e["pageY"], e["relatedTarget"], e["screenX"],
-      e["screenY"], e["shiftKey"]);
-}
-
-SyntheticEvent syntheticTouchEventFactory(JsObject e) {
-  return new SyntheticTouchEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["altKey"], e["changedTouches"], e["ctrlKey"], e["metaKey"],
-      e["shiftKey"], e["targetTouches"], e["touches"]);
-}
-
-SyntheticEvent syntheticUIEventFactory(JsObject e) {
-  return new SyntheticUIEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["detail"], e["view"]);
-}
-
-SyntheticEvent syntheticWheelEventFactory(JsObject e) {
-  return new SyntheticWheelEvent(e["bubbles"], e["cancelable"], e["currentTarget"],
-      e["defaultPrevented"], () => e.callMethod("preventDefault", []),
-      () => e.callMethod("stopPropagation", []), e["eventPhase"], e["isTrusted"], e["nativeEvent"],
-      e["target"], e["timeStamp"], e["type"], e["deltaX"], e["deltaMode"], e["deltaY"], e["deltaZ"]);
-}
-
-Set _syntheticClipboardEvents = new Set.from(["onCopy", "onCut", "onPaste",]);
-
-Set _syntheticKeyboardEvents = new Set.from(["onKeyDown", "onKeyPress",
-    "onKeyUp",]);
-
-Set _syntheticFocusEvents = new Set.from(["onFocus", "onBlur",]);
-
-Set _syntheticFormEvents = new Set.from(["onChange", "onInput", "onSubmit",
-]);
-
-Set _syntheticMouseEvents = new Set.from(["onClick", "onContextMenu",
-    "onDoubleClick", "onDrag", "onDragEnd", "onDragEnter", "onDragExit",
-    "onDragLeave", "onDragOver", "onDragStart", "onDrop", "onMouseDown",
-    "onMouseEnter", "onMouseLeave", "onMouseMove", "onMouseOut", 
-    "onMouseOver", "onMouseUp",]);
-
-Set _syntheticTouchEvents = new Set.from(["onTouchCancel", "onTouchEnd",
-    "onTouchMove", "onTouchStart",]);
-
-Set _syntheticUIEvents = new Set.from(["onScroll",]);
-
-Set _syntheticWheelEvents = new Set.from(["onWheel",]);
-
-
 void _render(JsObject component, HtmlElement element) {
   _React.callMethod('render', [component, element]);
 }
@@ -498,6 +371,5 @@ bool _unmountComponentAtNode(HtmlElement element) {
 }
 
 void setClientConfiguration() {
-  _React.callMethod('initializeTouchEvents', [true]);
   setReactConfiguration(_reactDom, _registerComponent, _render, null, _unmountComponentAtNode);
 }
