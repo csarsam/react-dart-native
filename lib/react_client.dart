@@ -9,6 +9,7 @@ import "dart:js";
 import "dart:async";
 
 var _React = context['React'];
+var _AppRegistry = _React['AppRegistry'];
 var _Object = context['Object'];
 
 const PROPS = 'props';
@@ -87,18 +88,8 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [Ite
       }
     };
 
-    var getRef = (name) {
-      var ref = jsThis['refs'][name] as JsObject;
-      if (ref[PROPS][INTERNAL] != null) return ref[PROPS][INTERNAL][COMPONENT];
-      else return ref.callMethod('getDOMNode', []);
-    };
-    
-    var getDOMNode = () {
-      return jsThis.callMethod("getDOMNode");
-    };
-
     Component component = componentFactory()
-        ..initComponentInternal(internal[PROPS], redraw, getRef, getDOMNode);
+        ..initComponentInternal(internal[PROPS], redraw);
 
     internal[COMPONENT] = component;
     internal[IS_MOUNTED] = false;
@@ -123,8 +114,7 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [Ite
    */
   var componentDidMount = new JsFunction.withThis((JsObject jsThis) => zone.run(() {
     //you need to get dom node by calling getDOMNode
-    var rootNode = jsThis.callMethod("getDOMNode");
-    _getComponent(jsThis).componentDidMount(rootNode);
+    _getComponent(jsThis).componentDidMount(/* TODO */);
   }));
 
   _getNextProps(Component component, newArgs) {
@@ -261,10 +251,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [Ite
       convertedArgs['key'] = extendedProps['key'];
     }
 
-    if (extendedProps.containsKey('ref')) {
-      convertedArgs['ref'] = extendedProps['ref'];
-    }
-
     /**
      * put props to internal part of args
      */
@@ -298,25 +284,13 @@ _reactDom(String name) {
   return new ReactComponentFactoryProxy(_React['DOM'][name], call);
 }
 
-/**
- * Recognize if type of input (or other element) is checkbox by it's props.
- */
-_isCheckbox(props) {
-  return props['type'] == 'checkbox';
-}
 
 /**
  * get value from DOM element.
  *
- * If element is checkbox, return bool, else return value of "value" attribute
  */
 _getValueFromDom(domElem) {
-  var props = domElem.attributes;
-  if (_isCheckbox(props)) {
-    return domElem.checked;
-  } else {
-    return domElem.value;
-  }
+  return domElem.value;
 }
 
 /**
@@ -325,17 +299,7 @@ _getValueFromDom(domElem) {
  * Specialy, it recognized chceckbox.
  */
 _setValueToProps(Map props, val) {
-  if (_isCheckbox(props)) {
-    if(val) {
-      props['checked'] = true;
-    } else {
-      if(props.containsKey('checked')) {
-         props.remove('checked');
-      }
-    }
-  } else {
-    props['value'] = val;
-  }
+  props['value'] = val;
 }
 
 /**
