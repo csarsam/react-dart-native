@@ -233,6 +233,9 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [Ite
     )])
   ]);
 
+  _AppRegistry.callMethod('registerComponent', ['darttest', reactComponentFactory]);
+
+
   var call = (Map props, [dynamic children]) {
     if (children == null) {
       children = [];
@@ -278,10 +281,10 @@ _reactDom(String name) {
     if (children is Iterable) {
       children = new JsArray.from(children);
     }
-    return _React['createElement'].apply([name, newJsMap(props), children]);
+    return _React['createElement'].apply([_React[name], newJsMap(props), children]);
   };
 
-  return new ReactComponentFactoryProxy(_React['DOM'][name], call);
+  return new ReactComponentFactoryProxy(_React[name], call);
 }
 
 
@@ -326,11 +329,11 @@ _convertBoundValues(Map args) {
   }
 }
 
-void _render(JsObject component, HtmlElement element) {
+void _render(JsObject component, var element) {
   _React.callMethod('render', [component, element]);
 }
 
-bool _unmountComponentAtNode(HtmlElement element) {
+bool _unmountComponentAtNode(var element) {
   return _React.callMethod('unmountComponentAtNode', [element]);
 }
 
