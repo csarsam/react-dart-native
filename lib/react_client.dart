@@ -47,7 +47,6 @@ class ReactComponentFactoryProxy implements Function {
   ReactComponentFactoryProxy(this._call, [this.reactComponentFactory]);
 
   JsObject call(Map props, [dynamic children]) {
-    print("called");
     return this._call(props, children);
   }
 }
@@ -81,10 +80,8 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
    * @return empty JsObject as default state for javascript react component
    */
   var getInitialState = new JsFunction.withThis((jsThis) => zone.run(() {
-    print("GET INITIAL STATE");
     jsThis[PROPS][INTERNAL] = newJsMap({});
     var internal = _getInternal(jsThis);
-    print(internal);
     var redraw = () {
       if (internal[IS_MOUNTED]) {
         jsThis.callMethod('setState', [emptyJsMap]);
@@ -92,10 +89,8 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
     };
 
     Component component = componentFactory();
-    print(component.runtimeType.toString());
 
     internal[COMPONENT] = component;
-    print(component);
     internal[IS_MOUNTED] = false;
     internal[PROPS] = component.props;
 
@@ -107,7 +102,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
    * only wrap componentWillMount
    */
   var componentWillMount = new JsFunction.withThis((jsThis) => zone.run(() {
-    print('COMPONENT WILL MOUNT');
     _getInternal(jsThis)[IS_MOUNTED] = true;
     _getComponent(jsThis)
         ..componentWillMount()
@@ -130,7 +124,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
   }
 //
   _afterPropsChange(Component component, newArgs) {
-    print("AFTER PROPS CHANGE");
     /** add component to newArgs to keep component in internal */
     newArgs[INTERNAL][COMPONENT] = component;
 //
@@ -206,9 +199,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
    * only wrap render
    */
   var render = new JsFunction.withThis((jsThis) => zone.run(() {
-    print("renderings!");
-    print(context['Object'].callMethod('keys', [jsThis]));
-    print(_getComponent(jsThis).runtimeType.toString());
     return _getComponent(jsThis).render();
   }));
 
@@ -242,7 +232,6 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
   });
 
   var call = (Map props, [dynamic children]) {
-    print("called - component");
     if (children == null) {
       children = [];
     } else if (children is! Iterable) {
@@ -289,31 +278,9 @@ dynamic _reactDom(String name) {
     }
     return _React['createElement'].apply([_React[name], newJsMap(props), children]);
   };
-
-//  return new ReactComponentFactoryProxy(call, _React[name]);
 }
-
-
-/**
- * get value from DOM element.
- *
- */
-_getValueFromDom(domElem) {
-  return domElem.value;
-}
-
-/**
- * set value to props based on type of input.
- *
- * Specialy, it recognized chceckbox.
- */
-_setValueToProps(Map props, val) {
-  props['value'] = val;
-}
-
 
 void _render(JsObject component, var element) {
-  print('render');
   _React.callMethod('render', [component, element]);
 }
 
