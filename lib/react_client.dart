@@ -57,7 +57,7 @@ _getProps(JsObject jsThis) => _getInternal(jsThis)[PROPS];
 _getComponent(JsObject jsThis) => _getInternal(jsThis)[COMPONENT];
 _getInternalProps(JsObject jsProps) => jsProps[INTERNAL][PROPS];
 
-ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [bool registerApp, Iterable<String> skipMethods = const []]) {
+ReactComponentFactory _registerComponent(String componentName, ComponentFactory componentFactory, [bool registerApp = false, Iterable<String> skipMethods = const []]) {
 
   var zone = Zone.current;
 
@@ -261,7 +261,7 @@ ReactComponentFactory _registerComponent(ComponentFactory componentFactory, [boo
    * return ReactComponentFactory which produce react component with set props and children[s]
    */
   if (registerApp)
-    _AppRegistry.callMethod('registerComponent', ['darttest', reactComponentFactory]);
+    _AppRegistry.callMethod('registerComponent', [componentName, reactComponentFactory]);
   return new ReactComponentFactoryProxy(call);
 }
 

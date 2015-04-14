@@ -1,0 +1,1 @@
+build/example/SampleApp/dart/index.dart.js

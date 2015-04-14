@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F5F93445-9988-485E-A588-905D177EBAF5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SampleApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3F4565942B423278E6FAE0A2423D71BA144F9FBB</key>
+		<string>https://github.com/csarsam/react-dart-native.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>example/SampleApp/SampleApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3F4565942B423278E6FAE0A2423D71BA144F9FBB</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/csarsam/react-dart-native.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3F4565942B423278E6FAE0A2423D71BA144F9FBB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3F4565942B423278E6FAE0A2423D71BA144F9FBB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>react-dart</string>
+		</dict>
+	</array>
+</dict>
+</plist>
