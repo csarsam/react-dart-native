@@ -146,7 +146,7 @@ var registerComponent;
 /** 
  * Basic UI elements
  */
-var Text, View;
+var Text, View, ActivityIndicatorIOS;
 
 
 /**
@@ -155,6 +155,7 @@ var Text, View;
 _createDOMComponents(creator){
   Text = creator('Text');
   View = creator('View');
+  ActivityIndicatorIOS = creator('ActivityIndicatorIOS');
 }
 
 /**
