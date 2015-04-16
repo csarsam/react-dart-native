@@ -7,6 +7,11 @@
  */
 library react;
 
+import "dart:js";
+
+part 'src/stylesheet.dart';
+part 'src/utils.dart';
+
 abstract class Component {
   Map props;
 

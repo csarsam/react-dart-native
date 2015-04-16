@@ -271,7 +271,8 @@ ReactComponentFactory _registerComponent(String componentName, ComponentFactory 
 dynamic _reactDom(String name) {
   return (Map props, [dynamic children]) {
     if (props.containsKey('style')) {
-      props['style'] = new JsObject.jsify(props['style']);
+      if (props['style'].runtimeType is Map)
+        props['style'] = new JsObject.jsify(props['style']);
     }
     if (children is Iterable) {
       children = new JsArray.from(children);
