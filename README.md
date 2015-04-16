@@ -4,14 +4,18 @@ Forked from [cleandart/react-dart](https://github.com/cleandart/react-dart).
 
 ##Development In Progress
 
-Currently supported elements:
+Currently supported components:
 
 * Text
 * View
 
+Currently supported APIs:
+
+* StyleSheet
+
 Check out a simple sample app in `examples/SampleApp`.
 
-To get up and running:
+To get the example up and running:
 
 ```sh
 $ pub build example/SampleApp/dart
