@@ -11,20 +11,21 @@ import "dart:js";
 
 part 'src/stylesheet.dart';
 part 'src/utils.dart';
+part 'src/datepickerios.dart';
 
 abstract class Component {
   Map props;
 
-  dynamic _jsRedraw;
+  dynamic _redraw;
 
   /**
    * Bind the value of input to [state[key]].
    */
   bind(key) => [state[key], (value) => setState({key: value})];
 
-  initComponentInternal(props, _jsRedraw) {
-    this._jsRedraw = _jsRedraw;
-    _initProps(props);
+  initComponentInternal(props, _redraw) {
+    this._redraw = _redraw;
+//    _initProps(props);
   }
 
   _initProps(props) {
@@ -80,11 +81,11 @@ abstract class Component {
    * and call React original setState method with no parameter
    */
   void setState(Map newState) {
-    if (newState != null) {
-      _nextState.addAll(newState);
-    }
+//    if (newState != null) {
+//      _nextState.addAll(newState);
+//    }
 
-    _jsRedraw();
+    _redraw();
   }
 
   /**
@@ -94,7 +95,7 @@ abstract class Component {
   void replaceState(Map newState) {
     Map nextState = newState == null ? {} : new Map.from(newState);
     _nextState = nextState;
-    _jsRedraw();
+    _redraw();
   }
 
   void componentWillMount() {}

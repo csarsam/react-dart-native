@@ -80,15 +80,18 @@ ReactComponentFactory _registerComponent(String componentName, ComponentFactory 
    * @return empty JsObject as default state for javascript react component
    */
   var getInitialState = new JsFunction.withThis((jsThis) => zone.run(() {
+    print('get initial state');
     jsThis[PROPS][INTERNAL] = newJsMap({});
     var internal = _getInternal(jsThis);
+    internal[PROPS] = newJsMap({});
     var redraw = () {
       if (internal[IS_MOUNTED]) {
         jsThis.callMethod('setState', [emptyJsMap]);
       }
     };
 
-    Component component = componentFactory();
+    Component component = componentFactory()
+      ..initComponentInternal(jsThis[PROPS], redraw);
 
     internal[COMPONENT] = component;
     internal[IS_MOUNTED] = false;

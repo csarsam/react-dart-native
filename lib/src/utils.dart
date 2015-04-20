@@ -4,6 +4,7 @@ JsObject _React = context['React'];
 JsObject _StyleSheet = _React['StyleSheet'];
 var _AppRegistry = _React['AppRegistry'];
 var _Object = context['Object'];
+JsObject _Date = context['Date'];
 
 JsObject newJsObjectEmpty() {
   return new JsObject(_Object);
