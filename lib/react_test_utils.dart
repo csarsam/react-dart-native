@@ -58,9 +58,6 @@ class Simulate {
   static void blur(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('blur', [instanceOrNode, new JsObject.jsify(eventData)]);
 
-  static void change(dynamic instanceOrNode, [Map eventData = const{}]) =>
-      _Simulate.callMethod('change', [instanceOrNode, new JsObject.jsify(eventData)]);
-
   static void click(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('click', [instanceOrNode, new JsObject.jsify(eventData)]);
 
@@ -115,6 +112,12 @@ class Simulate {
   static void keyUp(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('keyUp', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void load(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('load', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void error(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('error', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void mouseDown(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('mouseDown', [instanceOrNode, new JsObject.jsify(eventData)]);
 
@@ -132,6 +135,9 @@ class Simulate {
 
   static void paste(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('paste', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void reset(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('reset', [instanceOrNode, new JsObject.jsify(eventData)]);
 
   static void scroll(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('scroll', [instanceOrNode, new JsObject.jsify(eventData)]);
@@ -154,6 +160,30 @@ class Simulate {
   static void wheel(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _Simulate.callMethod('wheel', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void mouseEnter(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('mouseEnter', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void mouseLeave(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('mouseLeave', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void change(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('change', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void select(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('select', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void beforeInput(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('beforeInput', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionEnd(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('compositionEnd', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionStart(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('compositionStart', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionUpdate(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _Simulate.callMethod('compositionUpdate', [instanceOrNode, new JsObject.jsify(eventData)]);
+
 }
 
 /// Native event simulation interface.
@@ -170,8 +200,20 @@ class SimulateNative {
   static void blur(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('blur', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void change(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('change', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void click(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('click', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionEnd(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('compositionEnd', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionStart(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('compositionStart', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void compositionUpdate(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('compositionUpdate', [instanceOrNode, new JsObject.jsify(eventData)]);
 
   static void contextMenu(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('contextMenu', [instanceOrNode, new JsObject.jsify(eventData)]);
@@ -209,6 +251,9 @@ class SimulateNative {
   static void drop(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('drop', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void error(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('error', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void focus(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('focus', [instanceOrNode, new JsObject.jsify(eventData)]);
 
@@ -218,8 +263,14 @@ class SimulateNative {
   static void keyDown(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('keyDown', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void keyPress(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('keyPress', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void keyUp(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('keyUp', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void load(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('load', [instanceOrNode, new JsObject.jsify(eventData)]);
 
   static void mouseDown(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('mouseDown', [instanceOrNode, new JsObject.jsify(eventData)]);
@@ -239,11 +290,20 @@ class SimulateNative {
   static void paste(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('paste', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void reset(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('reset', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void scroll(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('scroll', [instanceOrNode, new JsObject.jsify(eventData)]);
 
+  static void selectionChange(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('selectionChange', [instanceOrNode, new JsObject.jsify(eventData)]);
+
   static void submit(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('submit', [instanceOrNode, new JsObject.jsify(eventData)]);
+
+  static void textInput(dynamic instanceOrNode, [Map eventData = const{}]) =>
+      _SimulateNative.callMethod('textInput', [instanceOrNode, new JsObject.jsify(eventData)]);
 
   static void touchCancel(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('touchCancel', [instanceOrNode, new JsObject.jsify(eventData)]);
@@ -259,7 +319,6 @@ class SimulateNative {
 
   static void wheel(dynamic instanceOrNode, [Map eventData = const{}]) =>
       _SimulateNative.callMethod('wheel', [instanceOrNode, new JsObject.jsify(eventData)]);
-
 }
 
 /// Traverse all components in tree and accumulate all components where
